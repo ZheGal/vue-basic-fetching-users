@@ -7,11 +7,12 @@
         <v-data-table v-if="users.length" v-model:items-per-page="itemsPerPage" :headers="headers" :items="users"
             item-value="name" class="elevation-1">
             <template v-slot:item.picture="{ item }">
-                <div class="my-3"><v-avatar size="80"><v-img :src="item.raw.picture" /></v-avatar></div>
+                <UserAvatar :user="item" />
             </template>
             <template v-slot:item.actions="{ item }">
                 <EditUserModal :id="item.raw.id" />
-                <v-btn @click="removeUser(item.raw.id)" :id="item.raw.id" color="error" v-model="item.value.actions">Remove</v-btn>
+                <v-btn @click="removeUser(item.raw.id)" :id="item.raw.id" color="error"
+                    v-model="item.value.actions">Remove</v-btn>
             </template>
         </v-data-table>
         <v-container v-else>Users are not found. Please create new user</v-container>
@@ -23,6 +24,7 @@ import CreateUserModal from '@/components/CreateUserModal';
 import { mapActions, mapState } from 'vuex';
 import { statuses } from '@/store/modules/users';
 import EditUserModal from '@/components/EditUserModal.vue';
+import UserAvatar from "@/components/UserAvatar.vue";
 
 export default {
     name: 'UsersList',
@@ -41,9 +43,10 @@ export default {
         }),
     },
     components: {
-    CreateUserModal,
-    EditUserModal
-},
+        CreateUserModal,
+        UserAvatar,
+        EditUserModal,
+    },
     data: () => ({
         itemsPerPage: 10,
         headers: [
