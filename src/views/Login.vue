@@ -24,7 +24,6 @@ export default {
                 password: this.password
             }
             this.$store.dispatch('login', credentials);
-            // this.$router.push('/')
         }
     }
 }

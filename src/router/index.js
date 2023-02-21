@@ -8,7 +8,7 @@ const routes = [
     component: () => import("@/layouts/default/Default.vue"),
     children: [
       {
-        path: "/users",
+        path: "/",
         name: "Users",
         component: () => import("@/views/UsersList.vue"),
         meta: { requiresAuth: true },
@@ -17,6 +17,7 @@ const routes = [
         path: "/login",
         name: "Login",
         component: () => import("@/views/Login.vue"),
+        meta: { onlyGuest: true },
       },
     ],
   },
@@ -28,12 +29,17 @@ const router = createRouter({
 });
 
 router.beforeEach((to, _from, next) => {
-  if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (!store.getters.isLoggedIn) {
-      return next("/login");
-    }
+  const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
+  const onlyGuest = to.matched.some((record) => record.meta.onlyGuest);
+  const isLoggedIn = store.getters.isLoggedIn;
+
+  if (requiresAuth && !isLoggedIn) {
+    next("/login");
+  } else if (onlyGuest && isLoggedIn) {
+    next("/");
+  } else {
+    next();
   }
-  return next();
 });
 
 export default router;

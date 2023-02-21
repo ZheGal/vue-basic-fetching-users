@@ -13,7 +13,7 @@ export default {
         EditUserModal,
     },
     props: {
-        userId: String,
+        userId: String | Number,
     },
     methods: {
         removeUser(id) {

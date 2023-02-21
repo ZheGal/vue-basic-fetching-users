@@ -1,4 +1,5 @@
 import axios from "axios";
+import router from "@/router";
 
 const state = {
   user: JSON.parse(localStorage.getItem("user")) || null,
@@ -12,6 +13,7 @@ const mutations = {
   auth_success(state, user) {
     state.status = "success";
     state.user = user;
+    router.push("/");
   },
   auth_error(state) {
     state.status = "error";
@@ -32,8 +34,8 @@ const actions = {
       },
     });
     if (user.length) {
-      localStorage.setItem("user", JSON.stringify(user));
-      commit("auth_success", user);
+      localStorage.setItem("user", JSON.stringify(user[0]));
+      commit("auth_success", user[0]);
     } else {
       commit("auth_error");
       localStorage.removeItem("user");
@@ -42,12 +44,14 @@ const actions = {
   async logout({ commit }) {
     commit("logout");
     localStorage.removeItem("user");
+    router.push("/login");
   },
 };
 
 const getters = {
   isLoggedIn: (state) => !!state.user,
   authStatus: (state) => state.status,
+  currentUser: (state) => state.user,
 };
 
 export default {
