@@ -1,10 +1,16 @@
 {
-    "users": [
-        {
-            "id": 1,
-            "url": "https://fastly.picsum.photos/id/791/200/200.jpg?hmac=bPVayqOX5aUzsnsX99AgWaxWB3WzWqwaiSDJ-lNHUk4",
-            "name": "admin",
-            "login": "admin"
-        }
-    ]
+  "users": [
+    {
+      "id": 1,
+      "url": "https://fastly.picsum.photos/id/791/200/200.jpg?hmac=bPVayqOX5aUzsnsX99AgWaxWB3WzWqwaiSDJ-lNHUk4",
+      "name": "admin",
+      "login": "admin"
+    },
+    {
+      "id": 2,
+      "login": "asdf",
+      "name": "sadf",
+      "password": "sadf"
+    }
+  ]
 }

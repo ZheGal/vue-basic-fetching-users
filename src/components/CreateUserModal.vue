@@ -26,16 +26,17 @@ import { statuses } from '@/store/modules/users';
 export default {
     data() {
         const initialUser = {
-                login: '',
-                name: '',
-                password: '',
-                passwordRepeat: '',};
+            login: '',
+            name: '',
+            password: '',
+            passwordRepeat: '',
+        };
         const submit = () => {
+            const { login, name, password } = this.user;
             const newUser = {
-                id: Date.now(),
-                login: this.userLogin,
-                name: this.userName,
-                password: this.userPassword,
+                login,
+                name,
+                password,
             };
             this.$store.dispatch(statuses.ADD_USER, newUser);
             this.user = { ...initialUser }
