@@ -1,16 +1,18 @@
 {
   "users": [
     {
-      "id": 1,
-      "url": "https://fastly.picsum.photos/id/791/200/200.jpg?hmac=bPVayqOX5aUzsnsX99AgWaxWB3WzWqwaiSDJ-lNHUk4",
-      "name": "admin",
-      "login": "admin"
+      "login": "Admin",
+      "name": "User",
+      "password": "qwerty",
+      "picture": "https://picsum.photos/seed/526390cc-48e3-494a-b346-24630785ecab/300",
+      "id": 1
     },
     {
-      "id": 2,
-      "login": "asdf",
-      "name": "sadf",
-      "password": "sadf"
+      "login": "tester",
+      "name": "tew",
+      "password": "asdf",
+      "picture": "https://picsum.photos/seed/9877e8e0-dd54-4200-8690-c209dea70857/300",
+      "id": 2
     }
   ]
 }

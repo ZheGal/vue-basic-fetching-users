@@ -50,7 +50,10 @@ const actions = {
 
   async [statuses.ADD_USER]({ commit, dispatch }, user) {
     try {
-      await axios.post("http://localhost:8001/users", user);
+      await axios.post("http://localhost:8001/users", {
+        ...user,
+        picture: `https://picsum.photos/seed/${crypto.randomUUID()}/300`
+      });
       dispatch(statuses.LOAD_USERS);
     } catch (error) {
       commit(statuses.LOAD_USERS_ERROR, error);
