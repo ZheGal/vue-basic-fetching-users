@@ -6,7 +6,12 @@
 </template>
   
 <script>
+import EditUserModal from '@/components/EditUserModal.vue';
+
 export default {
+    components: {
+        EditUserModal,
+    },
     props: {
         userId: String,
     },

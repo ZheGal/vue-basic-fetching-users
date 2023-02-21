@@ -10,9 +10,7 @@
                 <UserAvatar :user="item" />
             </template>
             <template v-slot:item.actions="{ item }">
-                <EditUserModal :id="item.raw.id" />
-                <v-btn @click="removeUser(item.raw.id)" :id="item.raw.id" color="error"
-                    v-model="item.value.actions">Remove</v-btn>
+                <UserActions :userId="item.raw.id" @remove-user="removeUser" />
             </template>
         </v-data-table>
         <v-container v-else>Users are not found. Please create new user</v-container>
@@ -23,8 +21,8 @@
 import CreateUserModal from '@/components/CreateUserModal';
 import { mapActions, mapState } from 'vuex';
 import { statuses } from '@/store/modules/users';
-import EditUserModal from '@/components/EditUserModal.vue';
 import UserAvatar from "@/components/UserAvatar.vue";
+import UserActions from "@/components/UserActions.vue";
 
 export default {
     name: 'UsersList',
@@ -45,7 +43,7 @@ export default {
     components: {
         CreateUserModal,
         UserAvatar,
-        EditUserModal,
+        UserActions,
     },
     data: () => ({
         itemsPerPage: 10,
