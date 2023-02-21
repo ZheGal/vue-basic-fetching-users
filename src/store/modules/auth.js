@@ -2,6 +2,9 @@ const state = {
   isSubmitting: false,
 };
 
+const actions = {
+}
+
 const mutations = {
   registerStart(state) {
     state.isSubmitting = true;
@@ -11,4 +14,5 @@ const mutations = {
 export default {
   state,
   mutations,
+  actions,
 };

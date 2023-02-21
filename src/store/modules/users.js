@@ -10,6 +10,7 @@ export const statuses = {
   LOAD_USERS_SUCCESS: "LOAD_USERS_SUCCESS",
   LOAD_USERS_ERROR: "LOAD_USERS_ERROR",
   ADD_USER: "ADD_USER",
+  UPDATE_USER: "UPDATE_USER",
 };
 
 const state = {
@@ -52,8 +53,26 @@ const actions = {
     try {
       await axios.post("http://localhost:8001/users", {
         ...user,
-        picture: `https://picsum.photos/seed/${crypto.randomUUID()}/300`
+        picture: `https://picsum.photos/seed/${crypto.randomUUID()}/300`,
       });
+      dispatch(statuses.LOAD_USERS);
+    } catch (error) {
+      commit(statuses.LOAD_USERS_ERROR, error);
+    }
+  },
+
+  async removeUser({ commit, dispatch }, id) {
+    try {
+      await axios.delete(`http://localhost:8001/users/${id}`);
+      dispatch(statuses.LOAD_USERS);
+    } catch (error) {
+      commit(statuses.LOAD_USERS_ERROR, error);
+    }
+  },
+
+  async updateUser({ commit, dispatch }, user) {
+    try {
+      await axios.patch(`http://localhost:8001/users/${user.id}`, user);
       dispatch(statuses.LOAD_USERS);
     } catch (error) {
       commit(statuses.LOAD_USERS_ERROR, error);

@@ -10,9 +10,8 @@
                 <div class="my-3"><v-avatar size="80"><v-img :src="item.raw.picture" /></v-avatar></div>
             </template>
             <template v-slot:item.actions="{ item }">
-                <!-- <v-btn color="primary" class="mr-3" v-model="item.value.actions">Auth as</v-btn> -->
-                <!-- <v-btn color="warning" class="mr-3" v-model="item.value.actions">Edit</v-btn> -->
-                <!-- <v-btn color="error" v-model="item.value.actions">Remove</v-btn> -->
+                <EditUserModal :id="item.raw.id" />
+                <v-btn @click="removeUser(item.raw.id)" :id="item.raw.id" color="error" v-model="item.value.actions">Remove</v-btn>
             </template>
         </v-data-table>
         <v-container v-else>Users are not found. Please create new user</v-container>
@@ -21,8 +20,9 @@
 
 <script>
 import CreateUserModal from '@/components/CreateUserModal';
-import { mapActions, mapMutations, mapState } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 import { statuses } from '@/store/modules/users';
+import EditUserModal from '@/components/EditUserModal.vue';
 
 export default {
     name: 'UsersList',
@@ -30,9 +30,9 @@ export default {
         this.$store.dispatch(statuses.LOAD_USERS);
     },
     methods: {
-        ...mapMutations({}),
         ...mapActions({
-            loadUsers: statuses.LOAD_USERS_START
+            authAs: 'authAs',
+            removeUser: 'removeUser',
         }),
     },
     computed: {
@@ -41,8 +41,9 @@ export default {
         }),
     },
     components: {
-        CreateUserModal
-    },
+    CreateUserModal,
+    EditUserModal
+},
     data: () => ({
         itemsPerPage: 10,
         headers: [
