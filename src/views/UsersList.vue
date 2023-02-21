@@ -4,8 +4,8 @@
             <v-spacer></v-spacer>
             <CreateUserModal />
         </v-toolbar>
-        <v-data-table v-if="users.length" v-model:items-per-page="itemsPerPage" :headers="headers" :items="users" item-value="name"
-            class="elevation-1">
+        <v-data-table v-if="users.length" v-model:items-per-page="itemsPerPage" :headers="headers" :items="users"
+            item-value="name" class="elevation-1">
             <template v-slot:item.picture="{ item }">
                 <div class="my-3"><v-avatar size="80"><v-img :src="item.raw.picture" /></v-avatar></div>
             </template>
@@ -67,7 +67,7 @@ export default {
             {
                 title: "Avatar",
                 align: "end",
-                sortable: true,
+                sortable: false,
                 key: 'picture',
             },
             {
