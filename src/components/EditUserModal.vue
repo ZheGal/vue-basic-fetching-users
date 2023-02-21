@@ -36,17 +36,30 @@ export default {
         const initialUser = {
             login: '',
             name: '',
+            oldPassword: '',
             password: '',
             passwordRepeat: '',
         };
-        const submit = () => {
-            const { login, name, password, passwordRepeat } = this.user;
+        const submit = async () => {
+            const { login, name, oldPassword, password, passwordRepeat } = this.user;
+            const { data: checkUser } = await axios.get('http://localhost:8001/users/', {
+                params: { login },
+            });
+            const checkUserPassword = checkUser[0]?.password;
             const newUser = {
                 id: this.id,
                 login,
                 name,
-                password,
             };
+            const comparePasswords = checkUserPassword === oldPassword;
+            const isPasswordChanging = !!password || !!passwordRepeat || !!oldPassword;
+            if (isPasswordChanging && !comparePasswords) {
+                return false;
+            }
+
+            if (isPasswordChanging && passwordRepeat === password) {
+                newUser.password = password;
+            }
             this.$store.dispatch('updateUser', newUser);
             this.fetchUser();
             this.dialog = false;
